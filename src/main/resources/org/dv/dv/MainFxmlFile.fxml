@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.*?>
+<?import com.lynden.gmapsfx.GoogleMapView?>
+<AnchorPane prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dv.dv.FXMLDocumentController">
+<VBox xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Menu">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openConnectionDialog" text="Connection" />
+                        <MenuItem mnemonicParsing="false" onAction="#pdfExport" text="Export to PDF" />
+                        <MenuItem mnemonicParsing="false" onAction="#xmlExport" text="Export to Excel" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+      <TabPane prefHeight="600.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Tables">
+               <content>
+                      <AnchorPane>
+                          <children>
+                              <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Tables" textAlignment="CENTER" wrapText="false">
+                                  <font>
+                                      <Font size="18.0" fx:id="x1" />
+                                  </font>
+                                  <textFill>
+                                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                                  </textFill>
+                              </Label>
+                              <TableView fx:id="result_table" layoutX="62.0" layoutY="287.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
+                    
+                        </TableView>
+                              <ComboBox fx:id="table_combo_box" layoutX="10.0" layoutY="64.0" prefHeight="27.0" prefWidth="201.0" promptText="Choose table" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
+                          </children>
+                      </AnchorPane>
+               </content>
+          </Tab>
+          <Tab text="Chart Config">
+               <content>
+                      <AnchorPane>
+                          <children>
+                              <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Charts chooser" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                              <ComboBox fx:id="chartPicker" layoutX="14.0" layoutY="62.0" prefWidth="150.0" promptText="Choose chart" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
+                              <AnchorPane fx:id="areaChartSettings" layoutX="11.0" layoutY="109.0" prefHeight="445.0" prefWidth="212.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                                  <children>
+                                      <Label text="Area chart line header:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                      <ComboBox fx:id="area_chart_header" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
+                                      <Label text="Area chart data (numeric):" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+                                      <ComboBox fx:id="area_chart_data" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+                                      <Label layoutX="10.0" layoutY="10.0" text="Area chart legend:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0" />
+                                      <ComboBox fx:id="area_chart_legend" layoutX="10.0" layoutY="10.0" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="120.0" />
+                                      <Label layoutX="20.0" layoutY="20.0" text="Area chart group by:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="155.0" />
+                                      <ComboBox fx:id="area_chart_group" layoutX="20.0" layoutY="20.0" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="175.0" />
+                                      <Button mnemonicParsing="false" onMouseClicked="#reload_area_chart" text="Show Area chart" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="215.0" />
+                                  </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="lineChartSettings" layoutX="21.0" layoutY="119.0" prefHeight="445.0" prefWidth="212.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                                  <children>
+                                      <Label text="Line chart line header:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                      <ComboBox fx:id="line_chart_header" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
+                                      <Label text="Area chart data (numeric):" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+                                      <ComboBox fx:id="line_chart_data" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+                                      <Label layoutX="10.0" layoutY="10.0" text="Area chart legend:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0" />
+                                      <ComboBox fx:id="line_chart_legend" layoutX="10.0" layoutY="10.0" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="120.0" />
+                                      <Label layoutX="20.0" layoutY="20.0" text="Area chart group by:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="155.0" />
+                                      <ComboBox fx:id="line_chart_group" layoutX="20.0" layoutY="20.0" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="175.0" />
+                                      <Button mnemonicParsing="false" onMouseClicked="#reload_line_chart" text="Show Line chart" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="215.0" />
+                                  </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="pieChartSettings" layoutX="1.0" layoutY="99.0" prefHeight="445.0" prefWidth="212.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                                  <children>
+                                      <Label text="Pie chart header:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                      <ComboBox fx:id="Pie_chart_header" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
+                                      <Label text="Pie chart data:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+                                      <ComboBox fx:id="Pie_chart_data" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+                                      <Button mnemonicParsing="false" onMouseClicked="#reload_pie_chart" text="Show Pie chart" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="105.0" />
+                                  </children>
+                              </AnchorPane>
+                        <AnchorPane fx:id="mapViewSettings" layoutX="11.0" layoutY="109.0" prefHeight="445.0" prefWidth="212.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                           <children>
+                              <Label text="Map view header:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                              <ComboBox fx:id="Map_view_header" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
+                              <Label text="Map view location:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+                              <ComboBox fx:id="Map_view_data" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+                              <Button mnemonicParsing="false" onMouseClicked="#reload_map_view" text="Show Map view" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="105.0" />
+                           </children>
+                        </AnchorPane>
+                          </children>
+                      </AnchorPane>
+               </content>
+          </Tab>
+            <Tab text="Chart View">
+               <content>
+                        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+                            <children>
+                                <Label fx:id="chart_label_ident" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Chart" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                                <PieChart fx:id="pie_chart" layoutX="14.0" layoutY="37.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0" />
+                                <AreaChart fx:id="area_chart" layoutX="-84.0" layoutY="73.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0">
+                                    <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                </AreaChart>
+                                <LineChart fx:id="line_chart" layoutX="-35.0" layoutY="73.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0">
+                                    <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                </LineChart>
+                                <!--MAP HERE-->
+                                <AnchorPane fx:id="mapViewAnchorPane" layoutX="-35.0" layoutY="73.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0">
+                                    <GoogleMapView fx:id="mapView" prefHeight="750.0" prefWidth="761.0" AnchorPane.bottomAnchor="-185.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-441.0" AnchorPane.topAnchor="0.0" />
+                                </AnchorPane>
+                        <ComboBox fx:id="locationChoser" layoutX="214.0" layoutY="12.0" prefHeight="27.0" prefWidth="202.0" visible="false" />
+                            </children>
+                        </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+            <children>
+                <Label fx:id="left_status" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="11.0" fx:id="x3" />
+                    </font>
+                    <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+                    </textFill>
+                </Label>
+                <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+                <Label fx:id="right_status" font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+            </children>
+            <padding>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </padding>
+        </HBox>
+    </children>
+</VBox>
+   <Pane fx:id="cover" prefHeight="649.0" prefWidth="900.0" style="-fx-background-color: rgba(50,50,50,0.8);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <Pane layoutX="310.0" layoutY="225.0" prefHeight="200.0" prefWidth="280.0">
+            <children>
+               <Text fill="WHITE" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </Text>
+               <TextField fx:id="user_" layoutX="14.0" layoutY="46.0" prefHeight="27.0" prefWidth="254.0" promptText="User" />
+               <Text fill="WHITE" layoutX="218.0" layoutY="140.0" onMouseClicked="#login" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+               </Text>
+               <PasswordField fx:id="ps_" layoutX="14.0" layoutY="87.0" prefHeight="27.0" prefWidth="254.0" promptText="Password" />
+            </children>
+            <effect>
+               <DropShadow color="#00000075" />
+            </effect>
+         </Pane>
+      </children>
+   </Pane>
+</AnchorPane>
