@@ -140,11 +140,11 @@ public class FXMLDocumentController implements Initializable, MapComponentInitia
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("INitIALIZE of MAP");
+        // System.out.println("INitIALIZE of MAP");
 
-        this.mapView = new GoogleMapView("en-US", "");
-        this.map = new GoogleMap();
-        mapView.addMapInializedListener(this);
+        this.mapView.addMapInializedListener(this);
+        //this.map = new GoogleMap();
+        // mapView.addMapInializedListener(this);
         ConnectThread c = new ConnectThread(mysql_db_user, mysql_db_pass, mysql_db_addr, mysql_db_name);
         c.start();
         result_table.setItems(data);
@@ -569,7 +569,9 @@ public class FXMLDocumentController implements Initializable, MapComponentInitia
             for(MapLocation mpl: listMapLocations){
                 markers.add(mpl.marker);
             }
-            this.map.addMarkers(markers);
+            for(Marker m: markers){
+                map.addMarker(m);
+            }
 //
 //            System.out.println("IN TRY");
 //            for (MapLocation mpl : listMapLocations) {
